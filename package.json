@@ -1,0 +1,24 @@
+{
+  "name": "App01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd server && npm start\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ytchengab/App01.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ytchengab/App01/issues"
+  },
+  "homepage": "https://github.com/ytchengab/App01#readme",
+  "dependencies": {
+    "concurrently": "^4.1.1",
+    "react-big-calendar": "^0.22.0"
+  }
+}
