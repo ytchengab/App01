@@ -26,13 +26,13 @@ export default [
     id: 3,
     title: "Monkey Knife Fight",
     start: new Date(2019, 3, 27, 8, 0, 0, 0),
-    end: new Date(2019, 3, 27, 10, 0, 0, 0),
+    end: new Date(2019, 3, 27, 10, 30, 0, 0),
     type: "underground"
   },
   {
     id: 4,
     title: "Big Cat Sledding",
-    start: new Date(2019, 3, 27, 10, 0, 0, 0),
+    start: new Date(2019, 3, 27, 10, 30, 0, 0),
     end: new Date(2019, 3, 27, 12, 0, 0, 0),
     type: "global"
   },

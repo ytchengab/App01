@@ -3,11 +3,13 @@ import React from 'react';
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+//import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+
 import events from "./events";
 import EventWrapper from "./EventWrapper";
 
 const localizer = momentLocalizer(moment); // or globalizeLocalizer
-
+//const DragAndDropCalendar = withDragAndDrop(Calendar)
 
 
   
@@ -16,12 +18,14 @@ class CalApp extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { events:events };
+    this.state = { events:events};
     //this.state = { events:[] };
+    this.moveEvent = this.moveEvent.bind(this)
+    this.createNewEvent = this.createNewEvent.bind(this)
     
   }
   
-  handleSelect = ({ start, end }) => {
+  createNewEvent = ({ start, end }) => {
     const title = window.prompt('New Event name')
     let currentIds = this.state.events.map((data) => data.id);
     let idToBeAdded = 0;
@@ -50,6 +54,51 @@ class CalApp extends React.Component {
       })
   }
   
+  resizeEvent = ({ event, start, end }) => {
+    const { events } = this.state
+
+    const nextEvents = events.map(existingEvent => {
+      // eslint-disable-next-line
+      return existingEvent.id == event.id
+        ? { ...existingEvent, start, end }
+        : existingEvent
+    })
+
+    this.setState({
+      events: nextEvents,
+    })
+
+    //alert(`${event.title} was resized to ${start}-${end}`)
+  }
+  
+  //moveEvent({ event, start, end, isAllDay: droppedOnAllDaySlot }) {
+  moveEvent({ event, start, end}) {
+    const { events } = this.state
+
+    const idx = events.indexOf(event)
+    //let allDay = event.allDay
+
+    /*if (!event.allDay && droppedOnAllDaySlot) {
+      allDay = true
+    } else if (event.allDay && !droppedOnAllDaySlot) {
+      allDay = false
+    }*/
+
+    //const updatedEvent = { ...event, start, end, allDay }
+    const updatedEvent = { ...event, start, end }
+
+    const nextEvents = [...events]
+    nextEvents.splice(idx, 1, updatedEvent)
+
+    this.setState({
+      events: nextEvents,
+    })
+
+    // alert(`${event.title} was dropped onto ${updatedEvent.start}`)
+  }
+  
+  /////////////////////////////////////////////////////////////////
+  
   render(){
       
  return ( 
@@ -64,8 +113,7 @@ class CalApp extends React.Component {
       eventWrapper: EventWrapper
       // event: Event
     }}
-      onSelectSlot={this.handleSelect}
-      views={["week", "day"]}
+      onSelectSlot={this.createNewEvent}
     />
     </div>
     );
